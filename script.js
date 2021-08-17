@@ -9,7 +9,7 @@ var pontuacao = [0, 0, 0, 0]
 
 
 var estados = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Minas Gerais", "Mato Grosso do Sul", "Mato Grosso", "Pará", "Paraíba", "Pernambuco", "Piauí", "Paraná", "Rio de Janeiro", "Rio Grande do Norte", "Rondônia", "Roraima", "Rio Grande do Sul", "Santa Catarina", "Sergipe", "São Paulo", "Tocantins"]
-var cidades = ["Rio Branco", "Maceio", "Macapa", "Manaus", "Salvador", "Fortaleza", "Brasilia", "Vitoria", "Goiania", "São Luis", "Belo Horizonte", "Campo Grande", "Cuiaba", "Belem", "Joao Pessoa", "Recife", "Teresina", "Curitiba", "Rio de Janeiro", "Natal", "Porto Velho", "Boa Vista", "Porto Alegre", "Florianopolis", "Aracaju", "Sao Paulo", "Palmas"]
+var cidades = ["Rio Branco", "Maceio", "Macapa", "Manaus", "Salvador", "Fortaleza", "Brasilia", "Vitoria", "Goiania", "Sao Luis", "Belo Horizonte", "Campo Grande", "Cuiaba", "Belem", "Joao Pessoa", "Recife", "Teresina", "Curitiba", "Rio de Janeiro", "Natal", "Porto Velho", "Boa Vista", "Porto Alegre", "Florianopolis", "Aracaju", "Sao Paulo", "Palmas"]
 
 
 btnEscolha.addEventListener("click", function (e) {
