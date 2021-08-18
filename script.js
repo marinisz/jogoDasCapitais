@@ -15,6 +15,7 @@ var cidades = ["Rio Branco", "Maceio", "Macapa", "Manaus", "Salvador", "Fortalez
 btnEscolha.addEventListener("click", function (e) {
     numPlayer = document.querySelector("#numPlayer").value
     if (numPlayer > 0) {
+        console.log("num players: " + numPlayer)
         escolhaPlayer.innerHTML = ""
         tabuleiro.innerHTML = `<div id="menuPlayers" class="mt-2">
     <h3 id="escolhido" class="player1 mb-0 mr-2">Player 1</h3>
@@ -73,8 +74,8 @@ function jogar() {
     var player4 = document.querySelector(".player4")
     var respostaUsuario = document.querySelector("#respostaUsuario").value
     confereResposta(respostaUsuario, jogadorAtual)
-    respostaUsuario.value = ""
     insereEstado(numAntigo)
+    console.log(jogadorAtual)
     if (numPlayer > 1) {
         if (jogadorAtual < numPlayer) {
             jogadorAtual++;
@@ -114,9 +115,9 @@ function jogar() {
     }
     numAntigo = getRandom(0, 26)
     insereEstado(numAntigo)
+    console.log(pontuacao)
     tableInsert()
     confereVencedor()
-    respostaUsuario.value = ""
 }
 
 function insereEstado(numero) {
@@ -125,13 +126,20 @@ function insereEstado(numero) {
 }
 
 function confereResposta(resposta, numeroPlayer) {
+    console.log("Resposta: " + resposta)
+    console.log("Correta: " + cidades[numAntigo])
+    console.log("Player: " + numeroPlayer)
+    console.log(cidades[numAntigo])
     var correcao = document.querySelector("#respostaErrada")
     var correta = document.querySelector("#respostaCerta")
+    document.querySelector("#respostaUsuario").value=""
     if (resposta.toUpperCase() === cidades[numAntigo].toUpperCase()) {
+        console.log("acertou")
         pontuacao[numeroPlayer - 1] += 1
         correcao.innerHTML = ""
         correta.innerHTML = "Correta"
     } else {
+        console.log("errou")
         correcao.innerHTML = "Resposta anterior correta: " + cidades[numAntigo]
         correta.innerHTML = ""
     }
@@ -140,7 +148,7 @@ function confereResposta(resposta, numeroPlayer) {
 function confereVencedor() {
     for (let i = 0; i < pontuacao.length; i++) {
         if (pontuacao[i] === 10) {
-            alert("Jogador " + jogadorAtual + " é o vencedor")
+            alert("Jogador " + pontuacao[i] + " é o vencedor")
             document.location.reload(true);
         }
     }
