@@ -74,6 +74,7 @@ function jogar() {
     var player4 = document.querySelector(".player4")
     var respostaUsuario = document.querySelector("#respostaUsuario").value
     confereResposta(respostaUsuario, jogadorAtual)
+    respostaUsuario.value = ""
     insereEstado(numAntigo)
     console.log(jogadorAtual)
     if (numPlayer > 1) {
@@ -118,6 +119,7 @@ function jogar() {
     console.log(pontuacao)
     tableInsert()
     confereVencedor()
+    respostaUsuario.value = ""
 }
 
 function insereEstado(numero) {
