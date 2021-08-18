@@ -147,7 +147,7 @@ function confereResposta(resposta, numeroPlayer) {
 function confereVencedor() {
     for (let i = 0; i < pontuacao.length; i++) {
         if (pontuacao[i] === 10) {
-            alert("Jogador " + pontuacao[i] + " é o vencedor")
+            alert("Jogador " + jogadorAtual + " é o vencedor")
             document.location.reload(true);
         }
     }
