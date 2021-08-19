@@ -37,7 +37,7 @@ btnEscolha.addEventListener("click", function (e) {
     <button onclick="jogar()" id="btnResposta" class="btn btn-primary my-2">Responder</button>
 </div>
 <div class="contador">
-    <table class="table table-striped table-success mt-2 table-hover">
+    <table class="table table-striped  mt-2 table-hover">
         <thead>
             <th>Player 1</th>
             <th>Player 2</th>
@@ -80,16 +80,12 @@ function jogar() {
     var respostaUsuario = document.querySelector("#respostaUsuario").value
     confereResposta(respostaUsuario, jogadorAtual)
     insereEstado(numAntigo)
-
+    console.log(jogadorAtual)
     if (numPlayer > 1) {
         if (jogadorAtual < numPlayer) {
             jogadorAtual++;
         } else {
             jogadorAtual = 1;
-        }
-
-        if (jogadorAtual > 4) {
-            jogadorAtual = 1
         }
         if (jogadorAtual === 1) {
             player1.id = "escolhido"
@@ -142,7 +138,6 @@ function confereResposta(resposta, numeroPlayer) {
         correta.innerHTML = "Correta"
         estadosInGame.splice(numAntigo, 1)
         cidades.splice(numAntigo, 1)
-        console.log(estadosInGame)
         acertos++;
     } else {
         correcao.innerHTML = "Resposta anterior correta: " + cidades[numAntigo]
@@ -151,9 +146,12 @@ function confereResposta(resposta, numeroPlayer) {
 }
 
 function confereVencedor() {
+    
     for (let i = 0; i < pontuacao.length; i++) {
-        if (pontuacao[i] === 10) {
-            alert("Jogador " + jogadorAtual + " é o vencedor")
+        if (pontuacao[i] === 3) {
+            let vencedor = pontuacao.indexOf(3)+1
+            let msg = criaMsg()
+            alert("Jogador " + vencedor + " é o vencedor!" + msg)
             document.location.reload(true);
         }
     }
@@ -190,3 +188,10 @@ addEventListener("keyup", function(event) {
     }
 });
 
+function criaMsg(){
+    let result = ""
+    for(let i=0; i<numPlayer; i++) {
+        result += "\nJogador "+(i+1)+": "+pontuacao[i]+" Pts"
+    }
+    return result;
+}
