@@ -6,12 +6,16 @@ var escolhaPlayer = document.querySelector(".escolhaPlayer")
 var numAntigo = getRandom(0, 26)
 var jogadorAtual = 1;
 var pontuacao = [0, 0, 0, 0]
-
-
+var estadoAtual = ""
+var estadoAnterior = ""
 var estados = ["Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", "Espírito Santo", "Goiás", "Maranhão", "Minas Gerais", "Mato Grosso do Sul", "Mato Grosso", "Pará", "Paraíba", "Pernambuco", "Piauí", "Paraná", "Rio de Janeiro", "Rio Grande do Norte", "Rondônia", "Roraima", "Rio Grande do Sul", "Santa Catarina", "Sergipe", "São Paulo", "Tocantins"]
 var cidades = ["Rio Branco", "Maceio", "Macapa", "Manaus", "Salvador", "Fortaleza", "Brasilia", "Vitoria", "Goiania", "Sao Luis", "Belo Horizonte", "Campo Grande", "Cuiaba", "Belem", "Joao Pessoa", "Recife", "Teresina", "Curitiba", "Rio de Janeiro", "Natal", "Porto Velho", "Boa Vista", "Porto Alegre", "Florianopolis", "Aracaju", "Sao Paulo", "Palmas"]
+var acertos = 0
+var estadosInGame = estados;
 
+//funcoes
 
+//pega o numero de jogadores e carrega o jogo
 btnEscolha.addEventListener("click", function (e) {
     numPlayer = document.querySelector("#numPlayer").value
     if (numPlayer > 0) {
@@ -60,12 +64,14 @@ btnEscolha.addEventListener("click", function (e) {
 
 })
 
+//pega um numero randomico de 1 a 26
 function getRandom(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+//pega a resposta do usuario e vê se ta certo
 function jogar() {
     var player1 = document.querySelector(".player1")
     var player2 = document.querySelector(".player2")
@@ -74,6 +80,7 @@ function jogar() {
     var respostaUsuario = document.querySelector("#respostaUsuario").value
     confereResposta(respostaUsuario, jogadorAtual)
     insereEstado(numAntigo)
+
     if (numPlayer > 1) {
         if (jogadorAtual < numPlayer) {
             jogadorAtual++;
@@ -111,25 +118,32 @@ function jogar() {
             player4.id = "escolhido"
         }
     }
-    numAntigo = getRandom(0, 26)
+    numAntigo = getRandom(0, 26-acertos)
+    estadoAnterior = 
     insereEstado(numAntigo)
     tableInsert()
     confereVencedor()
 }
 
+//muda o nome do estado para proxima pergutna
 function insereEstado(numero) {
     var estado = document.querySelector("#estado")
-    estado.innerHTML = estados[numero]
+    estado.innerHTML = estadosInGame[numero]
 }
 
 function confereResposta(resposta, numeroPlayer) {
+    var respostaUsuario = document.querySelector("#respostaUsuario")
     var correcao = document.querySelector("#respostaErrada")
     var correta = document.querySelector("#respostaCerta")
-    document.querySelector("#respostaUsuario").value=""
+    respostaUsuario.value = ""
     if (resposta.toUpperCase() === cidades[numAntigo].toUpperCase()) {
         pontuacao[numeroPlayer - 1] += 1
         correcao.innerHTML = ""
         correta.innerHTML = "Correta"
+        estadosInGame.splice(numAntigo, 1)
+        cidades.splice(numAntigo, 1)
+        console.log(estadosInGame)
+        acertos++;
     } else {
         correcao.innerHTML = "Resposta anterior correta: " + cidades[numAntigo]
         correta.innerHTML = ""
@@ -139,12 +153,13 @@ function confereResposta(resposta, numeroPlayer) {
 function confereVencedor() {
     for (let i = 0; i < pontuacao.length; i++) {
         if (pontuacao[i] === 10) {
-            alert("Jogador " + pontuacao[i] + " é o vencedor")
+            alert("Jogador " + jogadorAtual + " é o vencedor")
             document.location.reload(true);
         }
     }
 }
 
+//insere os dados na tabela
 function tableInsert() {
     var td1 = document.querySelector("#td1")
     var td2 = document.querySelector("#td2")
@@ -166,3 +181,12 @@ function tableInsert() {
         }
     }
 }
+
+//pega resposta com enter
+addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        jogar();
+    }
+});
+
